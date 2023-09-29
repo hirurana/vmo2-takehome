@@ -35,7 +35,6 @@ if __name__ == "__main__":
     from utils.variables import (
         artifact_output_filepath,
         data_url,
-        label_mapping,
         predicted_output_path,
         y_label,
     )
@@ -45,10 +44,8 @@ if __name__ == "__main__":
     full_data = pd.read_csv(data_url)
     y_true = full_data[y_label]
     X_data = full_data.drop([y_label], axis=1)
-
     full_data[y_label + "_prediction"] = predict(X_data, model, OH_encoder, ord_encoder)
     full_data[y_label + "_prediction"] = full_data[y_label + "_prediction"].map(
-        label_mapping
+        {1: "Yes", 0: "No"}
     )
-
     full_data.to_csv(predicted_output_path, index=False)

@@ -11,7 +11,6 @@ from utils import generate_datasets, generate_metrics, preprocess
 from utils.variables import (
     artifact_output_filepath,
     data_url,
-    label_mapping,
     object_cols,
     ordinal_cols,
     random_state,
@@ -19,6 +18,7 @@ from utils.variables import (
 )
 
 ########## DATA INGESTION ###############
+label_mapping = {"Yes": 1, "No": 0}
 x_train, y_train, x_val, y_val, x_test, y_test = generate_datasets(
     data_url, y_label, random_state, label_mapping
 )
