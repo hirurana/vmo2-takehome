@@ -21,7 +21,7 @@ def preprocess(
     num_cols = data._get_numeric_data().columns
 
     data[num_cols] = data[num_cols].transform([np.log1p])
-    data["Fee"] = data["Fee"] != 0
+    data["Fee"] = (data["Fee"] != 0).astype("float64")
 
     OH_cols_data = pd.DataFrame(OH_encoder.transform(data[object_cols]))
     data[ordinal_cols] = ord_encoder.transform(data[ordinal_cols])
@@ -30,4 +30,5 @@ def preprocess(
     non_OH_data = data.drop(object_cols, axis=1)
     data = pd.concat([non_OH_data, OH_cols_data], axis=1)
     data = data.drop(["Breed1"], axis=1)
+
     return data
